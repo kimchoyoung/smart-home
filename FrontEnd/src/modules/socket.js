@@ -1,7 +1,13 @@
 import io from 'socket.io-client'
 const socket = io('http://localhost:3010')
 
+<<<<<<< HEAD
 const Socket = {
+=======
+const socket = io('http://localhost:3000')
+
+export default {
+>>>>>>> upstream/master
   /**
    * Listener of Switch state from Socket
    * @param callback
@@ -23,8 +29,23 @@ const Socket = {
       socket.on('amps', msg => {
       callback(JSON.parse(msg))
     })
+  },
+  /**
+   * Listener of Prediction of changing Switch State from Socket
+   * @param callback
+   * Passing JSON Object of given message
+   */
+  onPrediction: function(callback) {
+    socket.on('prediction', msg => {
+      callback(JSON.parse(msg))
+    })
   }
+<<<<<<< HEAD
 }
 
 
 export default Socket;
+=======
+
+}
+>>>>>>> upstream/master
