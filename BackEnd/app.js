@@ -12,13 +12,13 @@ app.use(cors())
 
 let checkMonth=require('./routes/checkDate').checkMonth();
 let createTable=(year, month)=>{
-    let query=`create table consumption_9 (date DATE, plug INT, start TIME, end TIME, consumption INT);`
+    let query=`create table consumption_${month} (date DATE, plug INT, start TIME, end TIME, consumption INT);`
     //if not existst 추가. date에 auto 속성 추가
     req.app.get('db').query(query,(err, rows, field)=>{
         if(err) console.log(err);
         else {
             console.log('table is created');
-            table_name=`consumption_${month}_${year}`;
+            table_name=`consumption_${month}`;
         }
     })
 }
@@ -31,7 +31,7 @@ app.get('/dummy', (req,res)=>{
             let plug = Math.floor(Math.random() * 4) + 1;
             console.log(day, plug, quantity);
 
-            let query = `insert into consumption_${j}_2018 values('2018-${j}-${day}', ${plug}, null, null,${quantity});`
+            let query = `insert into consumption_${j} values('2018-${j}-${day}', ${plug}, null, null,${quantity});`
             req.app.get('db').query(query, (err, rows) => {
                 if (err) console.log(err);
                 else console.log(rows);
