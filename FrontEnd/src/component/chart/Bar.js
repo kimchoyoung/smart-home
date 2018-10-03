@@ -4,11 +4,6 @@ import 'superagent'
 
 
 export default class Bar extends React.Component {
-    constructor(props){
-        super(props)
-    }
-
-
     shouldComponentUpdate(nextProps, nextState){
         return nextProps.data !== this.props.data;
     }

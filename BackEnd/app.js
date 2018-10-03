@@ -54,24 +54,12 @@ let tablePage = require('./routes/tablePage');
 app.use('/tablepage',tablePage)
 
 
-client.on('connect',()=>{
-    console.log('conecete');
-    client.subscribe('/oneM2M/req/Mobius/Ssmart-hom/json',(err)=>{
-        if(err) console.log(err);
-        else{
-            client.on('message',(topic,msg)=>{
-                console.log(msg.toString())
-            })
-        }
-    })
-})
-
 
 var server = require('http').createServer(app)
 var io = require('socket.io')(server)
 io.on('connection', (socket) => {
     console.log('Socket.io connected')
-    
+
 })
 
 server.listen(app.get('port'))

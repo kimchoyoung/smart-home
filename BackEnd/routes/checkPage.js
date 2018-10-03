@@ -11,16 +11,23 @@ router.route('/date_record').get((req,res)=>{
     console.log(start_month, end_month);
 
     if(start_month===end_month)
-        query=`select plug as x, sum(consumption) as y from consumption_${start_month}_2018 where date>='${start}' AND date<='${end}'\
-                group by x order by y DESC`;
-    else
-        query=`select * from consumption_${start_month}_2018`;
+        query=`select plug as x, sum(consumption) as y from consumption_${start_month} where date>='${start}' AND date<='${end}'\
+ group by x order by y DESC`;
+    else {
+        query = `select * from consumption_${start_month} where date>='${start}' AND date<='${end}'`
+        for (let i = Number(start_month)+1; i <= end_month; ++i) {
+            query+=` UNION ALL select * from consumption_${i} where date>='${start}' AND date<='${end}'`
+        }
+        query=`select plug as x, sum(consumption) as y from (${query})c group by x order by y DESC`;
+    }
 
-    req.app.get('db').query(query,(err,rows)=>{
-        if(err) console.log(err);
-        console.log(rows);
-        sendJSON(res,true,rows);
-    })
+    console.log(query);
+
+     req.app.get('db').query(query,(err,rows)=>{
+         if(err) console.log(err);
+         console.log(rows);
+         sendJSON(res,true,rows);
+     })
 })
 
 function sendJSON(res, result, obj){

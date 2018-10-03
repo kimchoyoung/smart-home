@@ -18,6 +18,7 @@ router.route('/Schedule_data').get((req,res)=>{
             let query=`insert into today values(${data[num].plug1},${data[num].plug2},${data[num].plug3},${data[num].plug4},"${time}")`;
             req.app.get('db').query(query,(err,row,fields)=>{
                 if(err) throw err;
+                console.log(row);
             })
         }
 

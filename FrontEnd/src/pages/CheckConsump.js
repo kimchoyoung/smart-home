@@ -9,10 +9,10 @@ import Barchart from '../component/chart/Bar'
 import CheckTable from '../component/CheckTable'
 
 
-let now     = new Date()
-let month   = new Date()
-let week    = new Date()
-let year    = new Date()
+let now     = new Date();
+let month   = new Date();
+let week    = new Date();
+let year    = new Date();
 month.setMonth(now.getMonth()-1);
 week.setDate(now.getDay()-5)
 year.setFullYear(now.getFullYear()-1)

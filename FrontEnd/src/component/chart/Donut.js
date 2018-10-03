@@ -36,7 +36,7 @@ class Donut extends React.Component {
                 padAngle={2}
                 innerRadius={100}
                 width={800}
-                padding={10}
+                padding={15}
             />
         )
     }

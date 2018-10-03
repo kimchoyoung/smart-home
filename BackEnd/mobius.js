@@ -11,7 +11,7 @@ module.exports = function(io) {
   var ampsValue = {}
 
   client.on('connect', () => {
-    console.log('MQTT Connected')  
+    console.log('MQTT Connected')
 
     client.subscribe('/oneM2M/req/Mobius/Ssmart-home/json', err => {
       if(err) {
@@ -32,13 +32,13 @@ module.exports = function(io) {
     client.on('message', (topic, msg) => {
       if(topic === '/prediction') {
         try {
-          var jsonObj = JSON.parse(msg.toString()) 
+          var jsonObj = JSON.parse(msg.toString())
 
           // {plug, toState, after}
 
           setTimeout(() => {
-            setSwitchState(plugMacMapping[jsonObj.plug], jsonObj.toState)
-            
+            setSwitchState(plugMacMapping[jsonObj.plug], jsonObj.predicted)
+
           }, after*1000);
 
         } catch(e) {
@@ -115,7 +115,7 @@ module.exports = function(io) {
           }
         }
       }
-      body["m2m:cin"]["con"]["cmd"][plugNameMapping[plugName]] = toState 
+      body["m2m:cin"]["con"]["cmd"][plugNameMapping[plugName]] = toState
 
       var options = {
         url: 'http://52.78.33.177:7579/Mobius/smart-home/switch',
@@ -142,7 +142,3 @@ module.exports = function(io) {
 //   setSwitch:  setSwitchState
 // }
 
-setInterval(() => {
-  console.log(switchValue)
-  console.log(ampsValue)
-}, 1000)

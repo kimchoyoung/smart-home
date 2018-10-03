@@ -3,11 +3,16 @@ import '../css/component.css'
 import request from 'superagent'
 
 export default class PlanBtn extends React.Component{
-    state={
+    state={ // 초기화는 현재 상태로예여함.
         data:[]
     }
 
-    componentDidMount(){
+
+    shouldComponentUpdate(nextProps, nextState){
+        return nextState.data !== this.state.data;
+    }
+
+    componentDidMount(){ // mobius.js에서 현재 상태를 바로 받아와야하구, data set해줘야하구
         request
             .get(global.url+'/remotecontrol/soon')
             .end((err,res)=>{
@@ -19,10 +24,19 @@ export default class PlanBtn extends React.Component{
             })
     }
 
-    shouldComponentUpdate(nextProps, nextState){
-        return nextState.data !== this.state.data;
+/*
+    cancelScheduling=()=>{
+        let exam={plug:'plug1', predicted:true, after:100} //100초
+        let min=exam/60;
+        this.setState({
+            data: data.map(
+                value => min === value.time ?
+                    { ...value, ...exam.plug, ...exam.predicted}
+                    : value
+            )
+        })
     }
-
+*/
     removePlan=(e)=>{
         console.log(e.target)
         /*request
@@ -39,7 +53,7 @@ export default class PlanBtn extends React.Component{
 
     render(){
         const list = this.state.data.map(
-            btn => (<button onClick={this.removePlan} className={`${btn.showStyle?'button-reveal':'button-hidden'}`}> {btn.value}</button>)
+            btn => (<button onClick={this.removePlan} className={`${btn.predicted?'button-reveal':'button-hidden'}`}>{btn.plugName}</button>)
         )
         return (
             <div id='plan-contain'>

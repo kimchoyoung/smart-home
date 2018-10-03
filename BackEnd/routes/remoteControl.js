@@ -1,16 +1,16 @@
 let express = require('express');
 let router = express.Router();
 
-let data=[{time:'1', value:'plug1', showStyle:false},
-        {time:'2', value:'plug2', showStyle:false},
-        {time:'3', value:'plug3', showStyle:true},
-        {time:'4', value:'plug4', showStyle:false},
-        {time:'5', value:'plug5', showStyle:false},
-        {time:'6', value:'plug6', showStyle:false},
-        {time:'7', value:'plug7', showStyle:true},
-        {time:'8', value:'plug8', showStyle:true},
-        {time:'9', value:'plug9', showStyle:false},
-        {time:'10', value:'plug10', showStyle:false},]
+let data=[{time:1, plugName:'1', predicted:false},
+    {time:2, plugName:'2', predicted:false},
+    {time:3, plugName:'3', predicted:false},
+    {time:4, plugName:'4', predicted:false},
+    {time:5, plugName:'Plug1', predicted:true},
+    {time:6, plugName:'6', predicted:false},
+    {time:7, plugName:'6', predicted:false},
+    {time:8, plugName:'8', predicted:false},
+    {time:9, plugName:'Plug2', predicted:true},
+    {time:10, plugName:'10', predicted:false},]
 
 router.route('/soon').get((req,res)=>{
     sendJSON(res,true, data)

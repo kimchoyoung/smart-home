@@ -4,7 +4,7 @@ let router = express.Router();
 
 router.route('/line').get((req,res)=>{
     console.log('line');
-    let query=` select date,sum(consumption) as sum from consumption_9_2018 group by date;`;
+    let query=` select date,sum(consumption) as sum from consumption_9 group by date;`;
 
 
     req.app.get('db').query(query,(err,rows)=>{
@@ -18,7 +18,7 @@ router.route('/line').get((req,res)=>{
 router.route('/lastMonth').get((req,res)=>{
     console.log(req.query);
     let month=req.query.month;
-    let query=`select plug,sum(consumption) as sum from consumption_${month}_2018 group by plug order by sum DESC;`
+    let query=`select plug,sum(consumption) as sum from consumption_${month} group by plug order by sum DESC;`
 
     req.app.get('db').query(query,(err,rows)=>{
         if(err) console.log(err);
